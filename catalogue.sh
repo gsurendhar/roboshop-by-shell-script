@@ -35,45 +35,45 @@ VALIDATE(){
     fi
 }
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y   &>>$LOG_FILE
 VALIDATE $? "Disabling Default nodejs"
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y  &>>$LOG_FILE
 VALIDATE $? "enabling Default nodejs"
 
-dnf install nodejs -y
+dnf install nodejs -y      &>>$LOG_FILE
 VALIDATE $? "Installing nodejs:20 "
 
-useradd --system --home /app --shell /sbin/nologin --comment "Roboshop system user " roboshop 
+useradd --system --home /app --shell /sbin/nologin --comment "Roboshop system user " roboshop  &>>$LOG_FILE
 VALIDATE $? "Roboshop system user creating" 
 
 mkdir -p /app
 VALIDATE $? "Creating App directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>>$LOG_FILE
 VALIDATE $? "Downloading Catalogue"
 
 cd /app 
-unzip /tmp/catalogue.zip
+unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "Unzipping Catalogue"
 
-npm install 
+npm install &>>$LOG_FILE
 VALIDATE $? "Installing Dependencies"
 
-cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service &>>$LOG_FILE
 VALIDATE $? "catalogue service file is copied "
 
-systemctl daemon-reload
+systemctl daemon-reload  &>>$LOG_FILE
 VALIDATE $? "Daemon Realoding"
 
-systemctl enable catalogue
+systemctl enable catalogue &>>$LOG_FILE
 VALIDATE $? "Catalogue is enabling"
 
-systemctl start catalogue
+systemctl start catalogue &>>$LOG_FILE
 VALIDATE $? "Staring the Catalogue service"
 
 cp $SCRIPT_DIR/mongodb.repo /etc/yum.repos.d/mongodb.repo
-dnf install mongodb-mongosh -y
+dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "Installing Mongodb Client"
 
 
