@@ -84,13 +84,13 @@ read -s MYSQL_ROOT_PASSWORD
 dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "Installing MySql Client"
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql
+mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql  &>>$LOG_FILE
 VALIDATE $? "Loading SCHEMAS to MySQL"
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.sql 
+mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.sql &>>$LOG_FILE
 VALIDATE $? "Loading APP-USER DATA to MySQL"
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql
+mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql &>>$LOG_FILE
 VALIDATE $? "Loading MASTER_DATA to MySQL"
 
 systemctl restart shipping  &>>$LOG_FILE
