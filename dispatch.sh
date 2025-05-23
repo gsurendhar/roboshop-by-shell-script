@@ -64,6 +64,9 @@ go get  &>>$LOG_FILE
 go build  &>>$LOG_FILE
 VALIDATE $? "Installing Dependencies"
 
+cp $SCRIPT_DIR/dispatch.service /etc/systemd/system/dispatch.service
+VALIDATE $? "Copying Dispatch Service file"
+
 systemctl daemon-reload &>>$LOG_FILE
 VALIDATE $? "Daemon Reloading"
 
