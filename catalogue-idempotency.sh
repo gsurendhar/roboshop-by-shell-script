@@ -1,6 +1,6 @@
 #!/bin/bash
 #variables
-START_SCRIPT=$(date +%S)
+START_TIME=$(date +%S)
 USERID=$(id -u)
 SCRIPT_DIR=$PWD
 LOG_FOLDER="/var/log/roboshop-shell-logs"
@@ -11,7 +11,7 @@ G="\e[31"
 Y="\e[31"
 N="\e[31"
 
-echo "Script execution started at $START_SCRIPT " | tee -a $LOG_FILE
+echo "Script execution started at $START_TIME " | tee -a $LOG_FILE
 
 mkdir -p $LOG_FOLDER
 
@@ -92,6 +92,9 @@ else
     echo -e "Data is already loaded ....$Y SKIPPING $N "
 fi
 
+END_TIME=$(date +%S)
+TOTAL_TIME=$(($END_TIME-$START_TIME))
+echo -e "Script Execution Completed Successfully, $Y time taken : $TOTAL_TIME Seconds $N "
 
 
 
