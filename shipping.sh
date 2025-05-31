@@ -6,10 +6,10 @@ SCRIPT_DIR=$PWD
 LOG_FOLDER="/var/log/roboshop-shell-logs"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
-R="\e[31"
-G="\e[31"
-Y="\e[31"
-N="\e[31"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
 
 echo "Script execution started at $START_TIME " | tee -a $LOG_FILE
