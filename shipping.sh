@@ -37,10 +37,10 @@ VALIDATE(){
 }
 
 
-dnf install maven -y 
+dnf install maven -y &>>$LOG_FILE
 VALIDATE $? "Installing MAVEN and JAVA"
 
-id roboshop
+id roboshop &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
     useradd --system --home /app --shell /sbin/nologin --comment "Roboshop system user " roboshop 
@@ -49,7 +49,7 @@ else
     echo -e "roboshop user is already Created ....$Y SKIPPING USER Creation $N"
 fi
 
-mkdir -p /app
+mkdir -p /app &>>$LOG_FILE
 VALIDATE $? "Creating App directory"
 
 curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip  &>>$LOG_FILE
